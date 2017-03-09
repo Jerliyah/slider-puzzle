@@ -1,10 +1,9 @@
-require_relative "board.rb"
 
 class Controller
 	
 	def new_game
 		@board = [1,2,3,4,5,6,7,8,'_']
-		10000.times do 
+		1000.times do 
 			scramble_board
 		end
 		display_board
@@ -18,7 +17,7 @@ class Controller
 		end
 	end
 
-	def prompt_user(prompt = "Which tile would you like to move?")
+	def prompt_user(prompt = "#{instructions} Which tile would you like to move?")
 		puts prompt
 		user_input = gets.chomp
 		test_input(user_input) ? move(@board.index(user_input.to_i)) : prompt_user("That is not a valid move--Please try again!")
@@ -56,9 +55,12 @@ class Controller
 
 #View Methods
 	def display_board
+        welcome
+        
 	    styled_board = @board.map { |val| 
 	        "[#{val}]"
 	    }
+        puts "\n\n"
 	    puts styled_board[0...3].join('')
 	    puts styled_board[3...6].join('')
 	    puts styled_board[6...9].join('')
@@ -68,6 +70,16 @@ class Controller
 		print "\e[2J"
 		print "\e[H"
 	end
+
+    def welcome
+        puts "================================"
+        puts "Awesome Mathmatical Slider Game!"
+        puts "================================"
+    end
+
+    def instructions
+        puts "\nType in the number of the tile you would like to slide into the empty space:"
+    end
 
 
 end
